@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projeto 60 Dias</title>
+    <style>
+        body { 
+            background-color: #121212; 
+            color: #ffffff; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            height: 100vh; 
+            font-family: 'Courier New', Courier, monospace; 
+            margin: 0; 
+            text-align: center;
+        }
+        #timer { 
+            font-size: 3rem; 
+            font-weight: bold;
+            margin-bottom: 20px; 
+            letter-spacing: 2px;
+        }
+        #hidden-link { 
+            display: none; /* Escondido por padrão */
+            font-size: 1.5rem; 
+            color: #00ff00; 
+            text-decoration: none; 
+            border: 2px solid #00ff00; 
+            padding: 15px 30px; 
+            border-radius: 8px; 
+            transition: all 0.3s ease; 
+        }
+        #hidden-link:hover { 
+            background-color: #00ff00; 
+            color: #121212; 
+        }
+    </style>
+</head>
+<body>
+
+    <div id="timer">Iniciando...</div>
+    
+    <a id="hidden-link" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">Acessar o Conteúdo</a>
+
+    <script>
+        // Defina a sua data alvo exata aqui (Mês, Dia, Ano, Hora:Minuto:Segundo)
+        // Exemplo: 60 dias a partir do lançamento. 
+        const dataAlvo = new Date("Jun 09, 2026 00:00:00").getTime();
+
+        const atualizador = setInterval(function() {
+            const agora = new Date().getTime();
+            const distancia = dataAlvo - agora;
+
+            // Cálculos matemáticos para dias, horas, minutos e segundos
+            const dias = Math.floor(distancia / (1000 * 60 * 60 * 24));
+            const horas = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
+            const segundos = Math.floor((distancia % (1000 * 60)) / 1000);
+
+            // Exibe o resultado no elemento com id="timer"
+            document.getElementById("timer").innerHTML = 
+                dias + "d " + horas + "h " + minutos + "m " + segundos + "s ";
+
+            // Se a contagem regressiva acabar, esconde o timer e mostra o link
+            if (distancia < 0) {
+                clearInterval(atualizador);
+                document.getElementById("timer").style.display = "none";
+                document.getElementById("hidden-link").style.display = "block";
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
